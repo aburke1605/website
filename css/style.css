@@ -1,0 +1,84 @@
+/* === General Styles === */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #fdfdfd;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* === Header === */
+header {
+    background: #f9f5e7; /* Light straw color */
+    color: #2d472c; /* Dark green */
+    padding: 20px;
+    text-align: center;
+    border-bottom: 4px solid #c3d4c2;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+/* === Navigation === */
+nav {
+    text-align: center;
+    margin-top: 10px;
+}
+
+nav a {
+    color: #2d472c;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: inline-block;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+nav a:hover {
+    background: #c3d4c2;
+}
+
+/* === Sections === */
+section {
+    background: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    color: #2d472c;
+    border-bottom: 2px solid #c3d4c2;
+    padding-bottom: 5px;
+}
+
+/* === Footer === */
+footer {
+    text-align: center;
+    background: #f9f5e7;
+    color: #2d472c;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+    header h1 {
+        font-size: 2em;
+    }
+}
