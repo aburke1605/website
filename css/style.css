@@ -73,6 +73,19 @@ footer {
     margin-top: 20px;
 }
 
+/* === Images === */
+.image-link img {
+    width: 100%; /* Adjust as needed */
+    max-width: 300px; /* Prevent oversized images */
+    border-radius: 8px; /* Soft rounded corners */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-link img:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
 /* === Responsive Design === */
 @media (max-width: 768px) {
     .container {
