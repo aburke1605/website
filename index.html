@@ -29,6 +29,13 @@
             <a href="snake.html" target="_blank">
                 <button>Play Snake</button>
             </a>
+            <div id="collider-container" style="margin-top: 1rem;">
+                <canvas id="canvas" class="emscripten" width="512" height="512" 
+                        style="border:1px solid #ccc;" 
+                        oncontextmenu="event.preventDefault()" 
+                        tabindex="0">
+                </canvas>
+            </div>
         </section>
         <section id="experience">
             <h2>Experience</h2>
@@ -53,5 +60,29 @@
     <footer>
         <p>&copy; 2025 My Portfolio. All rights reserved.</p>
     </footer>
+
+    <script>
+        var Module = {
+            print: function (...args) {
+            console.log(args.join(" "));
+            },
+            canvas: (function () {
+            var canvas = document.getElementById('canvas');
+            if (canvas) {
+                canvas.focus();
+                canvas.addEventListener("webglcontextlost", function (e) {
+                alert('WebGL context lost. Please reload the page.');
+                e.preventDefault();
+                }, false);
+            }
+            return canvas;
+            })(),
+            setStatus: function () {},
+            monitorRunDependencies: function () {}
+        };
+    </script>
+
+    <script async type="text/javascript" src="Collider.js"></script>
+
 </body>
 </html>
