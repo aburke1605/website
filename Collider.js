@@ -39,7 +39,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: /tmp/tmpcvd2ku1w.js
+// include: /tmp/tmpx4wnihn6.js
 
   if (!Module['expectedDataFileDownloads']) {
     Module['expectedDataFileDownloads'] = 0;
@@ -219,14 +219,14 @@ var REMOTE_PACKAGE_SIZE = metadata['remote_package_size'];
 
   })();
 
-// end include: /tmp/tmpcvd2ku1w.js
-// include: /tmp/tmpv9xo8m5q.js
+// end include: /tmp/tmpx4wnihn6.js
+// include: /tmp/tmp3dyhhyv2.js
 
     // All the pre-js content up to here must remain later on, we need to run
     // it.
     if (Module['$ww'] || (typeof ENVIRONMENT_IS_PTHREAD != 'undefined' && ENVIRONMENT_IS_PTHREAD)) Module['preRun'] = [];
     var necessaryPreJSTasks = Module['preRun'].slice();
-  // end include: /tmp/tmpv9xo8m5q.js
+  // end include: /tmp/tmp3dyhhyv2.js
 // include: /home/aburke/github/emscripten-core/emsdk/upstream/emscripten/src/emrun_prejs.js
 /**
  * @license
@@ -249,13 +249,13 @@ if (typeof window == 'object') {
   }
 }
 // end include: /home/aburke/github/emscripten-core/emsdk/upstream/emscripten/src/emrun_prejs.js
-// include: /tmp/tmp78i5i1ro.js
+// include: /tmp/tmplirpg9xv.js
 
     if (!Module['preRun']) throw 'Module.preRun should exist because file support used it; did a pre-js delete it?';
     necessaryPreJSTasks.forEach((task) => {
       if (Module['preRun'].indexOf(task) < 0) throw 'All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?';
     });
-  // end include: /tmp/tmp78i5i1ro.js
+  // end include: /tmp/tmplirpg9xv.js
 
 
 // Sometimes an existing Module object exists with properties
@@ -864,20 +864,6 @@ function createExportWrapper(name, nargs) {
 }
 
 // include: runtime_exceptions.js
-// Base Emscripten EH error class
-class EmscriptenEH extends Error {}
-
-class EmscriptenSjLj extends EmscriptenEH {}
-
-class CppException extends EmscriptenEH {
-  constructor(excPtr) {
-    super(excPtr);
-    this.excPtr = excPtr;
-    const excInfo = getExceptionMessage(excPtr);
-    this.name = excInfo[0];
-    this.message = excInfo[1];
-  }
-}
 // end include: runtime_exceptions.js
 function findWasmBinary() {
     var f = 'Collider.wasm';
@@ -1314,39 +1300,6 @@ function dbg(...args) {
       abort(`Assertion failed: ${UTF8ToString(condition)}, at: ` + [filename ? UTF8ToString(filename) : 'unknown filename', line, func ? UTF8ToString(func) : 'unknown function']);
     };
 
-  var exceptionCaught =  [];
-  
-  
-  
-  var uncaughtExceptionCount = 0;
-  var ___cxa_begin_catch = (ptr) => {
-      var info = new ExceptionInfo(ptr);
-      if (!info.get_caught()) {
-        info.set_caught(true);
-        uncaughtExceptionCount--;
-      }
-      info.set_rethrown(false);
-      exceptionCaught.push(info);
-      ___cxa_increment_exception_refcount(ptr);
-      return ___cxa_get_exception_ptr(ptr);
-    };
-
-  
-  var exceptionLast = 0;
-  
-  
-  var ___cxa_end_catch = () => {
-      // Clear state flag.
-      _setThrew(0, 0);
-      assert(exceptionCaught.length > 0);
-      // Call destructor if one is registered then clear it.
-      var info = exceptionCaught.pop();
-  
-      ___cxa_decrement_exception_refcount(info.excPtr);
-      exceptionLast = 0; // XXX in decRef?
-    };
-
-  
   class ExceptionInfo {
       // excPtr - Thrown object pointer to wrap. Metadata pointer is calculated from it.
       constructor(excPtr) {
@@ -1404,87 +1357,17 @@ function dbg(...args) {
       }
     }
   
-  var ___resumeException = (ptr) => {
-      if (!exceptionLast) {
-        exceptionLast = new CppException(ptr);
-      }
-      throw exceptionLast;
-    };
+  var exceptionLast = 0;
   
-  
-  var setTempRet0 = (val) => __emscripten_tempret_set(val);
-  var findMatchingCatch = (args) => {
-      var thrown =
-        exceptionLast?.excPtr;
-      if (!thrown) {
-        // just pass through the null ptr
-        setTempRet0(0);
-        return 0;
-      }
-      var info = new ExceptionInfo(thrown);
-      info.set_adjusted_ptr(thrown);
-      var thrownType = info.get_type();
-      if (!thrownType) {
-        // just pass through the thrown ptr
-        setTempRet0(0);
-        return thrown;
-      }
-  
-      // can_catch receives a **, add indirection
-      // The different catch blocks are denoted by different types.
-      // Due to inheritance, those types may not precisely match the
-      // type of the thrown object. Find one which matches, and
-      // return the type of the catch block which should be called.
-      for (var caughtType of args) {
-        if (caughtType === 0 || caughtType === thrownType) {
-          // Catch all clause matched or exactly the same type is caught
-          break;
-        }
-        var adjusted_ptr_addr = info.ptr + 16;
-        if (___cxa_can_catch(caughtType, thrownType, adjusted_ptr_addr)) {
-          setTempRet0(caughtType);
-          return thrown;
-        }
-      }
-      setTempRet0(thrownType);
-      return thrown;
-    };
-  var ___cxa_find_matching_catch_2 = () => findMatchingCatch([]);
-
-  var ___cxa_find_matching_catch_3 = (arg0) => findMatchingCatch([arg0]);
-
-  
-  
-  var ___cxa_rethrow = () => {
-      var info = exceptionCaught.pop();
-      if (!info) {
-        abort('no exception to throw');
-      }
-      var ptr = info.excPtr;
-      if (!info.get_rethrown()) {
-        // Only pop if the corresponding push was through rethrow_primary_exception
-        exceptionCaught.push(info);
-        info.set_rethrown(true);
-        info.set_caught(false);
-        uncaughtExceptionCount++;
-      }
-      exceptionLast = new CppException(ptr);
-      throw exceptionLast;
-    };
-
-  
-  
+  var uncaughtExceptionCount = 0;
   var ___cxa_throw = (ptr, type, destructor) => {
       var info = new ExceptionInfo(ptr);
       // Initialize ExceptionInfo content after it was allocated in __cxa_allocate_exception.
       info.init(type, destructor);
-      exceptionLast = new CppException(ptr);
+      exceptionLast = ptr;
       uncaughtExceptionCount++;
-      throw exceptionLast;
+      assert(false, 'Exception thrown, but exception catching is not enabled. Compile with -sNO_DISABLE_EXCEPTION_CATCHING or -sEXCEPTION_CATCHING_ALLOWED=[..] to catch.');
     };
-
-  var ___cxa_uncaught_exceptions = () => uncaughtExceptionCount;
-
 
   /** @suppress {duplicate } */
   function syscallGetVarargI() {
@@ -4331,7 +4214,7 @@ function dbg(...args) {
   var __emscripten_memcpy_js = (dest, src, num) => HEAPU8.copyWithin(dest, src, src + num);
 
   var __emscripten_throw_longjmp = () => {
-      throw new EmscriptenSjLj;
+      throw Infinity;
     };
 
   var stringToUTF8 = (str, outPtr, maxBytesToWrite) => {
@@ -9885,37 +9768,6 @@ function dbg(...args) {
 
   var FS_createDevice = FS.createDevice;
 
-  var incrementExceptionRefcount = (ptr) => ___cxa_increment_exception_refcount(ptr);
-  Module['incrementExceptionRefcount'] = incrementExceptionRefcount;
-
-  var decrementExceptionRefcount = (ptr) => ___cxa_decrement_exception_refcount(ptr);
-  Module['decrementExceptionRefcount'] = decrementExceptionRefcount;
-
-  
-  
-  
-  
-  
-  var getExceptionMessageCommon = (ptr) => {
-      var sp = stackSave();
-      var type_addr_addr = stackAlloc(4);
-      var message_addr_addr = stackAlloc(4);
-      ___get_exception_message(ptr, type_addr_addr, message_addr_addr);
-      var type_addr = HEAPU32[((type_addr_addr)>>2)];
-      var message_addr = HEAPU32[((message_addr_addr)>>2)];
-      var type = UTF8ToString(type_addr);
-      _free(type_addr);
-      var message;
-      if (message_addr) {
-        message = UTF8ToString(message_addr);
-        _free(message_addr);
-      }
-      stackRestore(sp);
-      return [type, message];
-    };
-  var getExceptionMessage = (ptr) => getExceptionMessageCommon(ptr);
-  Module['getExceptionMessage'] = getExceptionMessage;
-
   FS.createPreloadedFile = FS_createPreloadedFile;
   FS.staticInit();
   // Set module methods based on EXPORTED_RUNTIME_METHODS
@@ -9956,21 +9808,7 @@ var wasmImports = {
   /** @export */
   __assert_fail: ___assert_fail,
   /** @export */
-  __cxa_begin_catch: ___cxa_begin_catch,
-  /** @export */
-  __cxa_end_catch: ___cxa_end_catch,
-  /** @export */
-  __cxa_find_matching_catch_2: ___cxa_find_matching_catch_2,
-  /** @export */
-  __cxa_find_matching_catch_3: ___cxa_find_matching_catch_3,
-  /** @export */
-  __cxa_rethrow: ___cxa_rethrow,
-  /** @export */
   __cxa_throw: ___cxa_throw,
-  /** @export */
-  __cxa_uncaught_exceptions: ___cxa_uncaught_exceptions,
-  /** @export */
-  __resumeException: ___resumeException,
   /** @export */
   __syscall_fcntl64: ___syscall_fcntl64,
   /** @export */
@@ -10420,51 +10258,15 @@ var wasmImports = {
   /** @export */
   fd_write: _fd_write,
   /** @export */
-  invoke_diii,
-  /** @export */
-  invoke_fiii,
-  /** @export */
-  invoke_i,
-  /** @export */
-  invoke_ii,
-  /** @export */
   invoke_iii,
   /** @export */
   invoke_iiii,
   /** @export */
   invoke_iiiii,
   /** @export */
-  invoke_iiiiii,
-  /** @export */
-  invoke_iiiiiii,
-  /** @export */
-  invoke_iiiiiiii,
-  /** @export */
-  invoke_iiiiiiiiiii,
-  /** @export */
-  invoke_iiiiiiiiiiii,
-  /** @export */
-  invoke_iiiiiiiiiiiii,
-  /** @export */
-  invoke_j,
-  /** @export */
-  invoke_jiiii,
-  /** @export */
-  invoke_v,
-  /** @export */
   invoke_vi,
   /** @export */
-  invoke_vii,
-  /** @export */
-  invoke_viii,
-  /** @export */
-  invoke_viiii,
-  /** @export */
-  invoke_viiiiiii,
-  /** @export */
-  invoke_viiiiiiiiii,
-  /** @export */
-  invoke_viiiiiiiiiiiiiii
+  invoke_viiii
 };
 var wasmExports = createWasm();
 var ___wasm_call_ctors = createExportWrapper('__wasm_call_ctors', 0);
@@ -10475,7 +10277,6 @@ var ___funcs_on_exit = createExportWrapper('__funcs_on_exit', 0);
 var _fflush = createExportWrapper('fflush', 1);
 var _strerror = createExportWrapper('strerror', 1);
 var _setThrew = createExportWrapper('setThrew', 2);
-var __emscripten_tempret_set = createExportWrapper('_emscripten_tempret_set', 1);
 var _emscripten_stack_init = () => (_emscripten_stack_init = wasmExports['emscripten_stack_init'])();
 var _emscripten_stack_get_free = () => (_emscripten_stack_get_free = wasmExports['emscripten_stack_get_free'])();
 var _emscripten_stack_get_base = () => (_emscripten_stack_get_base = wasmExports['emscripten_stack_get_base'])();
@@ -10483,12 +10284,6 @@ var _emscripten_stack_get_end = () => (_emscripten_stack_get_end = wasmExports['
 var __emscripten_stack_restore = (a0) => (__emscripten_stack_restore = wasmExports['_emscripten_stack_restore'])(a0);
 var __emscripten_stack_alloc = (a0) => (__emscripten_stack_alloc = wasmExports['_emscripten_stack_alloc'])(a0);
 var _emscripten_stack_get_current = () => (_emscripten_stack_get_current = wasmExports['emscripten_stack_get_current'])();
-var ___cxa_decrement_exception_refcount = createExportWrapper('__cxa_decrement_exception_refcount', 1);
-var ___cxa_increment_exception_refcount = createExportWrapper('__cxa_increment_exception_refcount', 1);
-var ___cxa_free_exception = createExportWrapper('__cxa_free_exception', 1);
-var ___get_exception_message = createExportWrapper('__get_exception_message', 3);
-var ___cxa_can_catch = createExportWrapper('__cxa_can_catch', 3);
-var ___cxa_get_exception_ptr = createExportWrapper('__cxa_get_exception_ptr', 1);
 var dynCall_ii = Module['dynCall_ii'] = createExportWrapper('dynCall_ii', 2);
 var dynCall_vi = Module['dynCall_vi'] = createExportWrapper('dynCall_vi', 2);
 var dynCall_v = Module['dynCall_v'] = createExportWrapper('dynCall_v', 1);
@@ -10523,15 +10318,6 @@ var dynCall_viffff = Module['dynCall_viffff'] = createExportWrapper('dynCall_vif
 var dynCall_vfff = Module['dynCall_vfff'] = createExportWrapper('dynCall_vfff', 4);
 var dynCall_jiji = Module['dynCall_jiji'] = createExportWrapper('dynCall_jiji', 5);
 var dynCall_iidiiii = Module['dynCall_iidiiii'] = createExportWrapper('dynCall_iidiiii', 7);
-var dynCall_j = Module['dynCall_j'] = createExportWrapper('dynCall_j', 1);
-var dynCall_iiiiiiiiiii = Module['dynCall_iiiiiiiiiii'] = createExportWrapper('dynCall_iiiiiiiiiii', 11);
-var dynCall_jiiii = Module['dynCall_jiiii'] = createExportWrapper('dynCall_jiiii', 5);
-var dynCall_iiiiiiiiiiiii = Module['dynCall_iiiiiiiiiiiii'] = createExportWrapper('dynCall_iiiiiiiiiiiii', 13);
-var dynCall_fiii = Module['dynCall_fiii'] = createExportWrapper('dynCall_fiii', 4);
-var dynCall_diii = Module['dynCall_diii'] = createExportWrapper('dynCall_diii', 4);
-var dynCall_iiiiiiiiiiii = Module['dynCall_iiiiiiiiiiii'] = createExportWrapper('dynCall_iiiiiiiiiiii', 12);
-var dynCall_viiiiiiiiii = Module['dynCall_viiiiiiiiii'] = createExportWrapper('dynCall_viiiiiiiiii', 11);
-var dynCall_viiiiiiiiiiiiiii = Module['dynCall_viiiiiiiiiiiiiii'] = createExportWrapper('dynCall_viiiiiiiiiiiiiii', 16);
 var dynCall_iiiiiiiii = Module['dynCall_iiiiiiiii'] = createExportWrapper('dynCall_iiiiiiiii', 9);
 var dynCall_iiiiij = Module['dynCall_iiiiij'] = createExportWrapper('dynCall_iiiiij', 7);
 var dynCall_iiiiid = Module['dynCall_iiiiid'] = createExportWrapper('dynCall_iiiiid', 6);
@@ -10548,7 +10334,7 @@ function invoke_viiii(index,a1,a2,a3,a4) {
     dynCall_viiii(index,a1,a2,a3,a4);
   } catch(e) {
     stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
+    if (e !== e+0) throw e;
     _setThrew(1, 0);
   }
 }
@@ -10559,7 +10345,7 @@ function invoke_iii(index,a1,a2) {
     return dynCall_iii(index,a1,a2);
   } catch(e) {
     stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
+    if (e !== e+0) throw e;
     _setThrew(1, 0);
   }
 }
@@ -10570,7 +10356,7 @@ function invoke_iiiii(index,a1,a2,a3,a4) {
     return dynCall_iiiii(index,a1,a2,a3,a4);
   } catch(e) {
     stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
+    if (e !== e+0) throw e;
     _setThrew(1, 0);
   }
 }
@@ -10581,7 +10367,7 @@ function invoke_iiii(index,a1,a2,a3) {
     return dynCall_iiii(index,a1,a2,a3);
   } catch(e) {
     stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
+    if (e !== e+0) throw e;
     _setThrew(1, 0);
   }
 }
@@ -10592,205 +10378,7 @@ function invoke_vi(index,a1) {
     dynCall_vi(index,a1);
   } catch(e) {
     stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_ii(index,a1) {
-  var sp = stackSave();
-  try {
-    return dynCall_ii(index,a1);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_vii(index,a1,a2) {
-  var sp = stackSave();
-  try {
-    dynCall_vii(index,a1,a2);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_v(index) {
-  var sp = stackSave();
-  try {
-    dynCall_v(index);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiiiiii(index,a1,a2,a3,a4,a5,a6) {
-  var sp = stackSave();
-  try {
-    return dynCall_iiiiiii(index,a1,a2,a3,a4,a5,a6);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiiiii(index,a1,a2,a3,a4,a5) {
-  var sp = stackSave();
-  try {
-    return dynCall_iiiiii(index,a1,a2,a3,a4,a5);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viii(index,a1,a2,a3) {
-  var sp = stackSave();
-  try {
-    dynCall_viii(index,a1,a2,a3);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiiiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
-  var sp = stackSave();
-  try {
-    return dynCall_iiiiiiii(index,a1,a2,a3,a4,a5,a6,a7);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
-  var sp = stackSave();
-  try {
-    return dynCall_iiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12) {
-  var sp = stackSave();
-  try {
-    return dynCall_iiiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_fiii(index,a1,a2,a3) {
-  var sp = stackSave();
-  try {
-    return dynCall_fiii(index,a1,a2,a3);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_diii(index,a1,a2,a3) {
-  var sp = stackSave();
-  try {
-    return dynCall_diii(index,a1,a2,a3);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_i(index) {
-  var sp = stackSave();
-  try {
-    return dynCall_i(index);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viiiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
-  var sp = stackSave();
-  try {
-    dynCall_viiiiiii(index,a1,a2,a3,a4,a5,a6,a7);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11) {
-  var sp = stackSave();
-  try {
-    return dynCall_iiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
-  var sp = stackSave();
-  try {
-    dynCall_viiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viiiiiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15) {
-  var sp = stackSave();
-  try {
-    dynCall_viiiiiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_j(index) {
-  var sp = stackSave();
-  try {
-    return dynCall_j(index);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_jiiii(index,a1,a2,a3,a4) {
-  var sp = stackSave();
-  try {
-    return dynCall_jiiii(index,a1,a2,a3,a4);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
+    if (e !== e+0) throw e;
     _setThrew(1, 0);
   }
 }
@@ -10815,6 +10403,7 @@ var missingLibrarySymbols = [
   'convertI32PairToI53',
   'convertU32PairToI53',
   'getTempRet0',
+  'setTempRet0',
   'inetPton4',
   'inetNtop4',
   'inetPton6',
@@ -10890,6 +10479,7 @@ var missingLibrarySymbols = [
   'makePromise',
   'idsToPromises',
   'makePromiseCallback',
+  'findMatchingCatch',
   'Browser_asyncPrepareDataCounter',
   'isLeapYear',
   'ydayFromDate',
@@ -10938,7 +10528,6 @@ var unexportedSymbols = [
   'stackSave',
   'stackRestore',
   'stackAlloc',
-  'setTempRet0',
   'ptrToString',
   'zeroMemory',
   'exitJS',
@@ -11028,11 +10617,6 @@ var unexportedSymbols = [
   'exceptionLast',
   'exceptionCaught',
   'ExceptionInfo',
-  'findMatchingCatch',
-  'getExceptionMessageCommon',
-  'incrementExceptionRefcount',
-  'decrementExceptionRefcount',
-  'getExceptionMessage',
   'Browser',
   'setMainLoop',
   'getPreloadedImageData__data',
