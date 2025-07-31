@@ -4,29 +4,97 @@
     <meta charset='UTF-8'>
     <link rel="icon" type="image/jpg" href="/favicon.jpg" />
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title> Aodhan Burke </title>
+    <title> Aodhán Burke </title>
     <link rel='stylesheet' type='text/css' href='css/style.css'>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 <body>
 
     <header>
-        <h1>Welcome to My Portfolio</h1>
+        <h1>
+            Aodhán Burke
+            <span style="font-size: 0.3em;">PhD, MPhys</span>
+        </h1>
         <nav>
-            <a href="#about">About Me</a>
-            <a href="#projects">Projects</a>
+            <a href="#about">Personal information</a>
             <a href="#experience">Experience</a>
+            <a href="#education">Education</a>
+            <a href="#projects">Projects</a>
+            <a href="#papers">Journal papers</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
+
     <div class="container">
         <section id="about">
-            <h2>About Me</h2>
-            <p>Hi! I'm a software developer passionate about building efficient and creative solutions.</p>
+            <h2>Personal information</h2>
+            <p>
+                <div class="row">
+                    <div class="column">
+                        <b>Contact details</b>
+                        <br>
+                        Mobile: (+44) 079 2286 9535
+                        <br>
+                        E-mail: <a href="mailto:aodhanburke@hotmail.com">aodhanburke@hotmail.com</a>
+                    </div>
+                    <div class="column">
+                        <b>GitHub:</b> <a href="https://github.com/aburke1605">https://github.com/aburke1605</a>
+                    </div>
+                </div>
+            </p>
+        </section>
+        <section id="education">
+            <h2>Education</h2>
+            <p>
+                In 2016 I completed three A-levels at school in Derry, Ireland, achieving A* \((\geq 90 \%)\) grades in Mathematics, Physics, and Chemistry, before moving to Manchester for university.
+            </p>
+            <p>
+                I initially spent four years (2016-2020) at the University of Manchester, gaining a first class \((83 \%)\) integrated-Masters degree in Physics.
+                This was followed by a further four years (2020-2024) spent researching and obtaining obtaining a doctorate in the field of particle physics.
+            </p>
+            <embed src="Degree Certificate.pdf" width="500" height="400" type="application/pdf">
+        </section>
+        <section id="experience">
+            <h2>Professional work</h2>
+            <p>
+                I currently work for the Civil Engineering department at the University of Liverpool,
+                leading a small team software development team.
+            </p>
+            <p>
+                We work in partnership with renewable energy, energy storage and electronics companies
+                in a government-funded project worth (over) £1.4m, with aims to design and realise a mini-grid
+                energy storage system for use in Sub-Saharan Africa and Ukraine.
+            </p>
+            <p>
+                The specific role of my team is to produce a remote monitoring and diagnostic system for
+                the mini-grid and its individual removable battery modules.
+            </p>
+            <p>
+                This encompases everything from the firmware of the microcontrollers interfaced with each
+                battery module, to the frontend of the monitoring website portal and all of the infracstructure 
+                and networking in between.
+            </p>
+            <p>
+                Prior to this, I briefly worked in a Postdoctoral role as a continuation of my PhD research
+                with the University of Manchester and CERN.
+            </p>
+        </section>
+        <section id="papers">
+            <h2>Published works</h2>
+            <a href="https://research.manchester.ac.uk/en/studentTheses/search-for-charge-parity-violation-in-semi-leptonic-wrong-sign-d0" class="image-link">
+                <img src="thesis.png" alt="Highlighted Image">
+            </a>
+            <a href="https://doi.org/10.1007/JHEP03(2025)149" class="image-link">
+                <img src="CPV_paper.png" alt="Highlighted Image">
+            </a>
+            <a href="https://doi.org/10.1088/1748-0221/19/06/P06023" class="image-link">
+                <img src="VELO_paper.png" alt="Highlighted Image">
+            </a>
         </section>
         <section id="projects">
-            <h2>Projects</h2>
-            <p>Here are some of the projects I've worked on, showcasing my skills and experience.</p>
+            <h2>Personal projects</h2>
+            <p>I sometimes work on personal projects in my free time, mostly developing in C++. </p>
             <a href="snake.html" target="_blank">
                 <button>Play Snake</button>
             </a>
@@ -37,19 +105,6 @@
                         tabindex="0">
                 </canvas>
             </div>
-        </section>
-        <section id="experience">
-            <h2>Experience</h2>
-            <p>With years of experience in software development, I have worked with various technologies and teams.</p>
-        </section>
-        <section id="papers">
-            <h2>Papers</h2>
-            <a href="https://doi.org/10.1007/JHEP03(2025)149" class="image-link">
-                <img src="CPV_paper.png" alt="Highlighted Image">
-            </a>
-            <a href="https://doi.org/10.1088/1748-0221/19/06/P06023" class="image-link">
-                <img src="VELO_paper.png" alt="Highlighted Image">
-            </a>
         </section>
         <section id="contact">
             <h2>Contact</h2>
@@ -83,7 +138,7 @@
         };
     </script>
 
-    <script async type="text/javascript" src="Collider.js"></script>
+    <!-- <script async type="text/javascript" src="Collider.js"></script> -->
 
 </body>
 </html>
