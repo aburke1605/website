@@ -18,11 +18,11 @@
         </h1>
         <nav>
             <a href="#about">Personal information</a>
-            <a href="#experience">Experience</a>
             <a href="#education">Education</a>
+            <a href="#experience">Professional work</a>
+            <a href="#cv">CV</a>
             <a href="#projects">Projects</a>
-            <a href="#papers">Journal papers</a>
-            <a href="#contact">Contact</a>
+            <a href="#papers">Publishments</a>
         </nav>
     </header>
 
@@ -50,7 +50,7 @@
                 In 2016 I completed three A-levels at school in Derry, Ireland, achieving A* \((\geq 90 \%)\) grades in Mathematics, Physics, and Chemistry, before moving to Manchester for university.
             </p>
             <p>
-                I initially spent four years (2016-2020) at the University of Manchester, gaining a first class \((83 \%)\) integrated-Masters degree in Physics.
+                I initially spent four years (2016-2020) at the University of Manchester, gaining a first class \((83 \%)\) integrated-Masters degree in Physics, and a top-10 finish in my year group.
                 This was followed by a further four years (2020-2024) spent researching and obtaining obtaining a doctorate in the field of particle physics.
             </p>
             <embed src="Degree Certificate.pdf" width="500" height="400" type="application/pdf">
@@ -72,16 +72,22 @@
             </p>
             <p>
                 This encompases everything from the firmware of the microcontrollers interfaced with each
-                battery module, to the frontend of the monitoring website portal and all of the infracstructure 
-                and networking in between.
+                battery module, to the frontend of the monitoring website portal and all of the infrastructure and networking in between.
             </p>
             <p>
                 Prior to this, I briefly worked in a Postdoctoral role as a continuation of my PhD research
                 with the University of Manchester and CERN.
             </p>
+            <p>
+                More specific details on my professional experience can be found in my CV below.
+            </p>
+        </section>
+        <section id="cv">
+            <h2>CV</h2>
+            <embed src="cv.pdf" width="500" height="400" type="application/pdf">
         </section>
         <section id="papers">
-            <h2>Published works</h2>
+            <h2>Publishments</h2>
             <a href="https://research.manchester.ac.uk/en/studentTheses/search-for-charge-parity-violation-in-semi-leptonic-wrong-sign-d0" class="image-link">
                 <img src="thesis.png" alt="Highlighted Image">
             </a>
@@ -94,21 +100,35 @@
         </section>
         <section id="projects">
             <h2>Personal projects</h2>
-            <p>I sometimes work on personal projects in my free time, mostly developing in C++. </p>
-            <a href="snake.html" target="_blank">
-                <button>Play Snake</button>
-            </a>
-            <div id="collider-container" style="margin-top: 1rem;">
-                <canvas id="canvas" class="emscripten" width="512" height="512" 
-                        style="border:1px solid #ccc;" 
-                        oncontextmenu="event.preventDefault()" 
-                        tabindex="0">
-                </canvas>
-            </div>
-        </section>
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>Get in touch with me via email or social media.</p>
+                <p>I sometimes work on personal projects in my free time, mostly developing in C++ as my first love.</p>
+
+                <h4>Computer games</h4>
+                    <p>
+                        Use the button below to play my remake of the classic computer game, Snake.
+                        This has been compiled to run in the browser and should open in a new tab.
+                    </p>
+                    <a href="snake.html" target="_blank">
+                        <button>Play Snake</button>
+                    </a>
+                    <p>
+                        I've also made a remake of Minesweeper, and more recently have begun a physics engine on which I can build more complex games in the future.
+                    </p>
+
+
+                <h4>Simulation of particle physics</h4>
+                    <p>
+                        The simulation below (of a general-purpose particle detector at the Large Hadron Collider) was my first large-scale project with C++.
+                        It shows a slice through a detector such as ATLAS, illustrating how different kinds of particles interact with different shells of the detector, using a random number generator to simulate real life fundamental physics.
+                        I built this as the final assignment in my undergraduate course, <i>Object-Oriented Programming in C++</i>.
+                        It makes use of many advanced C++ features, including smart pointers, lambdas, polymorphism and templating.
+                    </p>
+                    <div id="collider-container" style="margin-top: 1rem;">
+                        <canvas id="canvas" class="emscripten" width="512" height="512"
+                                style="border:1px solid #ccc;"
+                                oncontextmenu="event.preventDefault()"
+                                tabindex="0">
+                        </canvas>
+                    </div>
         </section>
     </div>
 
@@ -138,7 +158,7 @@
         };
     </script>
 
-    <!-- <script async type="text/javascript" src="Collider.js"></script> -->
+    <script async type="text/javascript" src="Collider.js"></script>
 
 </body>
 </html>
