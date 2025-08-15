@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-    <meta charset='UTF-8'>
-    <link rel="icon" type="image/jpg" href="/favicon.jpg" />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/jpg" href="{{ url_for('static', filename='img/favicon.jpg') }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Aodhán Burke </title>
-    <link rel='stylesheet' type='text/css' href='css/style.css'>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 <body>
-
     <header>
         <h1>
             Aodhán Burke
@@ -56,8 +55,8 @@
                 This was followed by a further four years (2020-2024) spent researching and obtaining obtaining a doctorate in the field of particle physics.
             </p>
             <div style="text-align: center;">
-                <embed src="MPhys.pdf" width="500" height="400" type="application/pdf">
-                <embed src="PhD.pdf" width="500" height="400" type="application/pdf">
+                <embed src="{{ url_for('static', filename='pdf/MPhys.pdf') }}" width="500" height="400" type="application/pdf">
+                <embed src="{{ url_for('static', filename='pdf/PhD.pdf') }}" width="500" height="400" type="application/pdf">
             </div>
         </section>
         <section id="experience">
@@ -90,20 +89,20 @@
         <section id="cv">
             <h2>CV</h2>
             <div style="text-align: center;">
-                <embed src="cv.pdf" width="500" height="400" type="application/pdf">
+                <embed src="{{ url_for('static', filename='pdf/cv.pdf') }}" width="500" height="400" type="application/pdf">
             </div>
         </section>
         <section id="papers">
             <h2>Publishments</h2>
             <div style="text-align: center;">
                 <a href="https://research.manchester.ac.uk/en/studentTheses/search-for-charge-parity-violation-in-semi-leptonic-wrong-sign-d0" class="image-link">
-                    <img src="thesis.png" alt="Highlighted Image">
+                    <img src="{{ url_for('static', filename='img/thesis.png') }}" alt="Thesis Image">
                 </a>
                 <a href="https://doi.org/10.1007/JHEP03(2025)149" class="image-link">
-                    <img src="CPV_paper.png" alt="Highlighted Image">
+                    <img src="{{ url_for('static', filename='img/CPV_paper.png') }}" alt="CPV Paper Image">
                 </a>
                 <a href="https://doi.org/10.1088/1748-0221/19/06/P06023" class="image-link">
-                    <img src="VELO_paper.png" alt="Highlighted Image">
+                    <img src="{{ url_for('static', filename='img/VELO_paper.png') }}" alt="VELO Paper Image">
                 </a>
             </div>
         </section>
@@ -117,12 +116,12 @@
                         This has been compiled to run in the browser and should open in a new tab.
                     </p>
                     <div style="text-align: center;">
-                        <a href="snake.html" target="_blank" style="text-decoration: none;">
+                        <a href="/snake" target="_blank" style="text-decoration: none;">
                             <button class="snake-btn">▶ PLAY SNAKE</button>
                         </a>
                     </div>
                     <p>
-                        I've also made a remake of Minesweeper, and more recently have begun a physics engine on which I can build more complex games in the future.
+                        I"ve also made a remake of Minesweeper, and more recently have begun a physics engine on which I can build more complex games in the future.
                     </p>
 
 
@@ -133,12 +132,10 @@
                         I built this as the final assignment in my undergraduate course, <i>Object-Oriented Programming in C++</i>.
                         It makes use of many advanced C++ features, including smart pointers, lambdas, polymorphism and templating.
                     </p>
-                    <div id="collider-container" style="margin-top: 1rem; text-align: center;">
-                        <canvas id="canvas" class="emscripten" width="512" height="512"
-                                style="border:1px solid #ccc;"
-                                oncontextmenu="event.preventDefault()"
-                                tabindex="0">
-                        </canvas>
+                    <div style="text-align: center;">
+                        <a href="/collider" target="_blank" style="text-decoration: none;">
+                            <button class="collider-button">Collider Simulation</button>
+                        </a>
                     </div>
         </section>
     </div>
@@ -147,29 +144,6 @@
     <footer>
         <p>&copy; 2025. All rights reserved.</p>
     </footer>
-
-    <script>
-        var Module = {
-            print: function (...args) {
-            console.log(args.join(" "));
-            },
-            canvas: (function () {
-            var canvas = document.getElementById('canvas');
-            if (canvas) {
-                canvas.focus();
-                canvas.addEventListener("webglcontextlost", function (e) {
-                alert('WebGL context lost. Please reload the page.');
-                e.preventDefault();
-                }, false);
-            }
-            return canvas;
-            })(),
-            setStatus: function () {},
-            monitorRunDependencies: function () {}
-        };
-    </script>
-
-    <script async type="text/javascript" src="Collider.js"></script>
 
 </body>
 </html>

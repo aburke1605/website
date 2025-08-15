@@ -1,9 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Collider</title>
+    <title>{% block title %}TITLE{% endblock %}</title>
     <style>
       html, body {
         margin: 0;
@@ -26,8 +25,11 @@
     </style>
   </head>
   <body>
-    <canvas id="canvas" class="emscripten" oncontextmenu="event.preventDefault()" tabindex="0"></canvas>
+    <canvas id="canvas" class="emscripten" 
+            oncontextmenu="event.preventDefault()" 
+            tabindex="0"></canvas>
 
+    <!-- Define Module before the app JS is loaded -->
     <script>
       var Module = {
         print: function (...args) {
@@ -46,13 +48,16 @@
         monitorRunDependencies: function () {}
       };
 
-      // Optionally request fullscreen on user interaction (if needed):
+      // Optional: request fullscreen on first click
       document.body.addEventListener('click', () => {
         document.body.requestFullscreen().catch(() => {});
         document.getElementById('canvas').focus();
       }, { once: true });
     </script>
 
-    <script async type="text/javascript" src="Collider.js"></script>
+    {% block content %}
+    <!-- Child templates will inject the app's JS here -->
+    <script async type="text/javascript" src="REPLACE_ME.js"></script>
+    {% endblock %}
   </body>
 </html>

@@ -167,3 +167,39 @@ footer {
     80%  { opacity: 0.10; }
     100% { opacity: 0.15; }
 }
+
+.collider-button {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(145deg, #0d1b2a, #1b263b);
+    border: 2px solid #0f4c75;
+    border-radius: 12px;
+    padding: 0.8rem 2rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 76, 255, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+.collider-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, transparent 60%);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+}
+.collider-button:hover {
+    background: linear-gradient(145deg, #1b263b, #0d1b2a);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.7), inset 0 0 10px rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+.collider-button:hover::before {
+    top: -20%;
+    left: -20%;
+}
