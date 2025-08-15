@@ -173,33 +173,55 @@ footer {
     font-size: 1.2rem;
     font-weight: bold;
     color: #fff;
-    background: linear-gradient(145deg, #0d1b2a, #1b263b);
-    border: 2px solid #0f4c75;
-    border-radius: 12px;
+    background: radial-gradient(circle at center, #0a0f1e 0%, #05080f 100%);
+    border: 2px solid #38bdf8;
+    border-radius: 50px;
     padding: 0.8rem 2rem;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 15px rgba(0, 76, 255, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
     transition: all 0.3s ease;
 }
 .collider-button::before {
     content: '';
     position: absolute;
-    top: -50%;
+    inset: 0;
+    background:
+        repeating-radial-gradient(circle at center, transparent 0 18px, rgba(56,189,248,0.15) 18px 20px),
+        repeating-linear-gradient(45deg, transparent 0 45px, rgba(56,189,248,0.15) 45px 47px);
+    mix-blend-mode: screen;
+    opacity: 0.4;
+    pointer-events: none;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+.collider-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
     left: -50%;
     width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, transparent 60%);
-    transform: rotate(45deg);
-    transition: all 0.5s ease;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 0px,
+        rgba(56,189,248,0.8) 5px,
+        rgba(255,255,255,0) 10px
+    );
+    transform: rotate(-20deg);
+    animation: photonWave 2s infinite linear;
+    pointer-events: none;
+    opacity: 0.6;
+}
+@keyframes photonWave {
+    from { background-position: 0; }
+    to { background-position: 20px; }
 }
 .collider-button:hover {
-    background: linear-gradient(145deg, #1b263b, #0d1b2a);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.7), inset 0 0 10px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.9), inset 0 0 15px rgba(255, 255, 255, 0.2);
     transform: scale(1.05);
 }
 .collider-button:hover::before {
-    top: -20%;
-    left: -20%;
+    opacity: 0.7;
+    transform: scale(1.1) rotate(10deg);
 }
