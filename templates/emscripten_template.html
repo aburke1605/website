@@ -26,11 +26,22 @@
     </style>
   </head>
   <body>
+    <div id="loading" style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: sans-serif;
+      font-size: 1.5rem;
+      color: #555;
+    ">
+      Loading...
+    </div>
+
     <canvas id="canvas" class="emscripten" 
             oncontextmenu="event.preventDefault()" 
             tabindex="0"></canvas>
 
-    <!-- Define Module before the app JS is loaded -->
     <script>
       var Module = {
         print: function (...args) {
@@ -45,11 +56,15 @@
           }, false);
           return canvas;
         })(),
-        setStatus: function () {},
+        setStatus: function (text) {
+          // Hide loader when status changes to "Running..." or similar
+          if (text && text.toLowerCase().includes("running")) {
+            document.getElementById('loading').style.display = 'none';
+          }
+        },
         monitorRunDependencies: function () {}
       };
 
-      // Optional: request fullscreen on first click
       document.body.addEventListener('click', () => {
         document.body.requestFullscreen().catch(() => {});
         document.getElementById('canvas').focus();
@@ -57,7 +72,6 @@
     </script>
 
     {% block content %}
-    <!-- Child templates will inject the app's JS here -->
     <script async type="text/javascript" src="REPLACE_ME.js"></script>
     {% endblock %}
   </body>
