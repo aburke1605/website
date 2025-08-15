@@ -3,5 +3,5 @@
 {% block title %}Collider{% endblock %}
 
 {% block content %}
-    <script async type="text/javascript" src="Collider.js"></script>
+    <script async type="text/javascript" src="{{ url_for('static', filename='emscripten/Collider.js') }}"></script>
 {% endblock %}

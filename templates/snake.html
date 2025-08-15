@@ -3,5 +3,5 @@
 {% block title %}Snake{% endblock %}
 
 {% block content %}
-    <script async type="text/javascript" src="snake.js"></script>
+    <script async type="text/javascript" src="{{ url_for('static', filename='emscripten/snake.js') }}"></script>
 {% endblock %}
