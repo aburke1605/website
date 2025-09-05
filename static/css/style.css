@@ -135,7 +135,8 @@ footer {
 }
 
 .about-image img {
-  max-width: 100%;
+  max-width: 200px;   /* or whatever size looks good */
+  width: 100%;        /* shrink nicely on small screens */
   height: auto;
   border-radius: 8px;
 }
@@ -148,6 +149,9 @@ footer {
   }
   .about-image {
     text-align: center;
+  }
+  .about-image img {
+    max-width: 150px;  /* smaller image on phones */
   }
 }
 
