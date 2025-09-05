@@ -118,6 +118,40 @@ footer {
   padding: 10px;
 }
 
+.about-container {
+  display: flex;
+  flex-wrap: wrap;        /* lets it stack on narrow screens */
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.about-text {
+  flex: 1 1 60%;          /* grows, shrinks, min 60% */
+}
+
+.about-image {
+  flex: 1 1 30%;
+  text-align: right;
+}
+
+.about-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Small screens: stack image below text */
+@media (max-width: 600px) {
+  .about-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .about-image {
+    text-align: center;
+  }
+}
+
+
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 .snake-btn {
     position: relative;

@@ -28,34 +28,29 @@
     <div class="container">
         <section id="about" class="tab-content active">
             <h2>Personal information</h2>
-            <p>
+            <div class="about-container">
+                <div class="about-text">
+                <p style="text-align: center">
+                    My name is Aodhán (the original Irish spelling of
+                    <a href="https://en.wikipedia.org/wiki/Aidan#">Aidan</a>).
+                </p>
                 <div class="row">
-                    <div class="column-70">
-                        <div style="text-align: center">
-                            <p>
-                                My name is Aodhán (the original Irish spelling of <a href="https://en.wikipedia.org/wiki/Aidan#">Aidan</a>).
-                            </p>
-                        </div>
-                        <div class="row">
-                            <div class="column">
-                                <b>Contact details</b>
-                                <br>
-                                Mobile: (+44) 079 2286 9535
-                                <br>
-                                E-mail: <a href="mailto:aodhanburke@hotmail.com">aodhanburke@hotmail.com</a>
-                            </div>
-                            <div class="column">
-                                <b>GitHub:</b> <a href="https://github.com/aburke1605">github.com/aburke1605</a>
-                                <br>
-                                <b>Linkedin:</b> <a href="https://www.linkedin.com/in/aodhan-burke-227168154">linkedin.com/in/aodhan-burke-227168154</a>
-                            </div>
-                        </div>
+                    <div class="column">
+                    <b>Contact details</b><br>
+                    Mobile: (+44) 079 2286 9535<br>
+                    E-mail: <a href="mailto:aodhanburke@hotmail.com">aodhanburke@hotmail.com</a>
                     </div>
-                    <div class="column-30" style="text-align: right">
-                        <img src="{{ url_for('static', filename='img/favicon.jpg') }}" alt="Me" width="100%" height="auto">
+                    <div class="column">
+                    <b>GitHub:</b> <a href="https://github.com/aburke1605">github.com/aburke1605</a><br>
+                    <b>LinkedIn:</b> <a href="https://www.linkedin.com/in/aodhan-burke-227168154">linkedin.com/in/aodhan-burke-227168154</a>
                     </div>
                 </div>
-            </p>
+                </div>
+
+                <div class="about-image">
+                <img src="{{ url_for('static', filename='img/favicon.jpg') }}" alt="Me">
+                </div>
+            </div>
         </section>
         <section id="education" class="tab-content">
             <h2>Education</h2>
