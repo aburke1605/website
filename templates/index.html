@@ -16,17 +16,17 @@
             <span style="font-size: 0.3em;">PhD, MPhys</span>
         </h1>
         <nav>
-            <a href="#about">Personal information</a>
-            <a href="#education">Education</a>
-            <a href="#experience">Professional work</a>
-            <a href="#cv">CV</a>
-            <a href="#projects">Projects</a>
-            <a href="#papers">Publishments</a>
+            <a data-tab="about" class="active">Personal information</a>
+            <a data-tab="education">Education</a>
+            <a data-tab="experience">Professional work</a>
+            <a data-tab="cv">CV</a>
+            <a data-tab="projects">Projects</a>
+            <a data-tab="papers">Publishments</a>
         </nav>
     </header>
 
     <div class="container">
-        <section id="about">
+        <section id="about" class="tab-content active">
             <h2>Personal information</h2>
             <p>
                 <div class="row">
@@ -57,7 +57,7 @@
                 </div>
             </p>
         </section>
-        <section id="education">
+        <section id="education" class="tab-content">
             <h2>Education</h2>
             <p>
                 In 2016 I completed three A-levels at school in Derry, Ireland, achieving A* \((\geq 90 \%)\) grades in Mathematics, Physics, and Chemistry, before moving to Manchester for university.
@@ -71,7 +71,7 @@
                 <embed src="{{ url_for('static', filename='pdf/PhD.pdf') }}" width="500" height="400" type="application/pdf">
             </div>
         </section>
-        <section id="experience">
+        <section id="experience" class="tab-content">
             <h2>Professional work</h2>
             <p>
                 I currently work for the Civil Engineering department at the University of Liverpool,
@@ -98,13 +98,13 @@
                 More specific details on my professional experience can be found in my CV below.
             </p>
         </section>
-        <section id="cv">
+        <section id="cv" class="tab-content">
             <h2>CV</h2>
             <div style="text-align: center;">
                 <embed src="{{ url_for('static', filename='pdf/cv.pdf') }}" width="500" height="400" type="application/pdf">
             </div>
         </section>
-        <section id="papers">
+        <section id="papers" class="tab-content">
             <h2>Publishments</h2>
             <div style="text-align: center;">
                 <a href="https://research.manchester.ac.uk/en/studentTheses/search-for-charge-parity-violation-in-semi-leptonic-wrong-sign-d0" class="image-link">
@@ -118,7 +118,7 @@
                 </a>
             </div>
         </section>
-        <section id="projects">
+        <section id="projects" class="tab-content">
             <h2>Personal projects</h2>
                 <p>I sometimes work on personal projects in my free time, mostly developing in C++ as my first love.</p>
 
@@ -157,5 +157,21 @@
         <p>&copy; 2025. All rights reserved.</p>
     </footer>
 
+    <script>
+        const tabs = document.querySelectorAll("nav a");
+        const contents = document.querySelectorAll(".tab-content");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                // deactivate all tabs and contents
+                tabs.forEach(t => t.classList.remove("active"));
+                contents.forEach(c => c.classList.remove("active"));
+
+                // activate clicked tab and corresponding content
+                tab.classList.add("active");
+                document.getElementById(tab.dataset.tab).classList.add("active");
+            });
+        });
+    </script>
 </body>
 </html>
