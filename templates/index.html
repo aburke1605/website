@@ -29,26 +29,36 @@
         <section id="about" class="tab-content active">
             <h2>Personal information</h2>
             <div class="about-container">
-                <div class="about-text">
-                <p style="text-align: center">
-                    My name is Aodhán (the original Irish spelling of
-                    <a href="https://en.wikipedia.org/wiki/Aidan#">Aidan</a>).
-                </p>
-                <div class="row">
-                    <div class="column">
-                    <b>Contact details</b><br>
-                    Mobile: (+44) 079 2286 9535<br>
-                    E-mail: <a href="mailto:aodhanburke@hotmail.com">aodhanburke@hotmail.com</a>
+                <div class="about-text tooltip">
+                    <p style="text-align: center">
+                        Welcome to <b>aodhan.xyz</b>!
+                    </p>
+                    <p style="text-align: center">
+                        My name is
+                        <span class="tooltip">Aodhán
+                            <span class="tooltiptext">the original Irish spelling of
+                            <a href="https://en.wikipedia.org/wiki/Aidan#">Aidan</a></span>
+                        </span>,
+                        I'm 27 and from County Derry in Ireland.
+                    </p>
+                    <p style="text-align: center">
+                        I have a PhD in Particle Physics but recently started a career in full stack software development.
+                    </p>
+                    <div class="row">
+                        <div class="column">
+                            <b>Contact details</b><br>
+                            Mobile: (+44) 079 2286 9535<br>
+                            E-mail: <a href="mailto:aodhanburke@hotmail.com">aodhanburke@hotmail.com</a>
+                        </div>
+                        <div class="column">
+                            <b>GitHub:</b> <a href="https://github.com/aburke1605">github.com/aburke1605</a><br>
+                            <b>LinkedIn:</b> <a href="https://www.linkedin.com/in/aodhan-burke-227168154">linkedin.com/in/aodhan-burke-227168154</a> (not active on here...)
+                        </div>
                     </div>
-                    <div class="column">
-                    <b>GitHub:</b> <a href="https://github.com/aburke1605">github.com/aburke1605</a><br>
-                    <b>LinkedIn:</b> <a href="https://www.linkedin.com/in/aodhan-burke-227168154">linkedin.com/in/aodhan-burke-227168154</a>
-                    </div>
-                </div>
                 </div>
 
                 <div class="about-image">
-                <img src="{{ url_for('static', filename='img/favicon.jpg') }}" alt="Me">
+                    <img src="{{ url_for('static', filename='img/favicon.jpg') }}" alt="Me">
                 </div>
             </div>
         </section>
@@ -90,7 +100,7 @@
                 with the University of Manchester and CERN.
             </p>
             <p>
-                More specific details on my professional experience can be found in my CV below.
+                More specific details on my professional experience can be found in my CV.
             </p>
         </section>
         <section id="cv" class="tab-content">
