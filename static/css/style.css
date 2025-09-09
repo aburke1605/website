@@ -41,6 +41,13 @@ header h1 {
     display: block;
 }
 
+a {
+    color: var(--secondary-color);
+    text-decoration: underline;
+    font-weight: bold;
+    display: inline-block;
+}
+
 nav {
     text-align: center;
     margin-top: 10px;
@@ -179,8 +186,7 @@ footer {
   max-width: 240px;
   padding: 6px 8px;
   border-radius: 6px;
-  background: var(--secondary-color);
-  color: white;
+  background: var(--primary-color);
   font-size: 0.9rem;
   line-height: 1.2;
   white-space: nowrap;
