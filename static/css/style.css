@@ -163,31 +163,47 @@ footer {
 }
 
 
-/* Tooltip container */
 .tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  position: relative;            /* positions the box */
+  display: inline-block;         /* hover area = just the word */
+  cursor: help;
+  border-bottom: 1px dotted var(--secondary-color); /* dots under the hoverable text */
 }
 
-/* Tooltip text */
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-
-  /* Position the tooltip text - see examples below! */
+.tooltip .tooltip-box {
   position: absolute;
-  z-index: 1;
+  left: 50%;
+  bottom: 125%;                  /* place above the word */
+  transform: translateX(-50%);
+  min-width: max-content;
+  max-width: 240px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--secondary-color);
+  color: white;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  white-space: nowrap;
+
+  opacity: 0; /* hidden before hover */
+  transform-origin: bottom center;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-  visibility: visible;
+.tooltip:hover .tooltip-box,
+.tooltip:focus-visible .tooltip-box {
+  opacity: 1;
+  transform: translateX(-50%);
+}
+
+/* optional little arrow */
+.tooltip .tooltip-box::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--secondary-color);
 }
 
 
