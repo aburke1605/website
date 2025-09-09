@@ -21,7 +21,7 @@
             <a data-tab="experience">Professional work</a>
             <a data-tab="cv">CV</a>
             <a data-tab="projects">Projects</a>
-            <a data-tab="papers">Publishments</a>
+            <a data-tab="papers">Publications</a>
         </nav>
     </header>
 
@@ -110,17 +110,26 @@
             </div>
         </section>
         <section id="papers" class="tab-content">
-            <h2>Publishments</h2>
-            <div style="text-align: center;">
-                <a href="https://research.manchester.ac.uk/en/studentTheses/search-for-charge-parity-violation-in-semi-leptonic-wrong-sign-d0" class="image-link">
-                    <img src="{{ url_for('static', filename='img/thesis.png') }}" alt="Thesis Image">
-                </a>
-                <a href="https://doi.org/10.1007/JHEP03(2025)149" class="image-link">
-                    <img src="{{ url_for('static', filename='img/CPV_paper.png') }}" alt="CPV Paper Image">
-                </a>
-                <a href="https://doi.org/10.1088/1748-0221/19/06/P06023" class="image-link">
-                    <img src="{{ url_for('static', filename='img/VELO_paper.png') }}" alt="VELO Paper Image">
-                </a>
+            <h2>Publications</h2>
+            <div class="papers-grid">
+                <div style="text-align: center;">
+                    <p>My PhD thesis is accessible on the University of Manchester here:</p>
+                    <a href="https://research.manchester.ac.uk/en/studentTheses/search-for-charge-parity-violation-in-semi-leptonic-wrong-sign-d0" class="image-link">
+                        <img src="{{ url_for('static', filename='img/thesis.png') }}" alt="Thesis Image">
+                    </a>
+                </div>
+                <div style="text-align: center;">
+                    <p>The main journal-published paper from my PhD work is on the Journal of High Energy Physics here:</p>
+                    <a href="https://doi.org/10.1007/JHEP03(2025)149" class="image-link">
+                        <img src="{{ url_for('static', filename='img/CPV_paper.png') }}" alt="CPV Paper Image">
+                    </a>
+                </div>
+                <div style="text-align: center;">
+                    <p>This paper contains some hands-on hardwork work I did while living in Geneva and working at CERN:</p>
+                    <a href="https://doi.org/10.1088/1748-0221/19/06/P06023" class="image-link">
+                        <img src="{{ url_for('static', filename='img/VELO_paper.png') }}" alt="VELO Paper Image">
+                    </a>
+                </div>
             </div>
         </section>
         <section id="projects" class="tab-content">
