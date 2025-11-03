@@ -34,5 +34,9 @@ def collider_data():
 def visits():
     return f"visits: {count}"
 
+@app.route("/debug")
+def debug():
+    return dict(request.headers)
+
 if __name__ == "__main__":
     app.run(debug=True, port=8000)
