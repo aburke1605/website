@@ -114,7 +114,11 @@
         <section id="cv" class="tab-content">
             <h2>CV</h2>
             <div style="text-align: center;">
-                <embed src="{{ url_for('static', filename='pdf/cv.pdf') }}" width="500" height="400" type="application/pdf">
+                <object data="{{ url_for('static', filename='pdf/v.pdf') }}" width="500" height="400" type="application/pdf">
+                    <p>Your browser does not support PDFs.
+                        <a href="{{ url_for('static', filename='pdf/cv.pdf') }}">Download PDF</a>
+                    </p>
+                </object>
             </div>
         </section>
         <section id="papers" class="tab-content">
