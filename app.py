@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 
 from flask import Flask, request, render_template, send_from_directory
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
 import requests
@@ -26,7 +27,14 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI", "None")
 DB = SQLAlchemy(app)
+Migrate(app, DB)
 
+class VisitorInfo(DB.Model):
+    __tablename__ = "visitor_info"
+    ip = DB.Column(DB.String(15), primary_key=True)
+    region = DB.Column(DB.String(64))
+    city = DB.Column(DB.String(64))
+    country = DB.Column(DB.String(64))
 
 @app.route("/")
 def index():
