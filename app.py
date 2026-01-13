@@ -1,6 +1,10 @@
-import requests
-from flask import Flask, request, render_template, send_from_directory
+import os
+from dotenv import load_dotenv
 
+from flask import Flask, request, render_template, send_from_directory
+from flask_sqlalchemy import SQLAlchemy
+
+import requests
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 
@@ -15,8 +19,13 @@ def geo_lookup(ip):
     r = requests.get(f"https://ipinfo.io/{ip}/json")
     return r.json()
 
+load_dotenv()
+
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI", "None")
+DB = SQLAlchemy(app)
 
 
 @app.route("/")
