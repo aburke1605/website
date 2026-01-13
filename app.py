@@ -1,18 +1,30 @@
 import requests
 from flask import Flask, request, render_template, send_from_directory
 
+from werkzeug.middleware.proxy_fix import ProxyFix
+
+
+def get_client_ip():
+    return (
+        request.headers.get("CF-Connecting-IP")
+        or request.headers.get("X-Forwarded-For", "").split(",")[0]
+        or request.remote_addr
+    )
+
+def geo_lookup(ip):
+    r = requests.get(f"https://ipinfo.io/{ip}/json")
+    return r.json()
+
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)
+
 
 @app.route("/")
 def index():
-    ip = request.remote_addr
-    resp = requests.get(f"https://ipinfo.io/{ip}/json")
-    data = resp.json()
+    ip = get_client_ip()
+    location = geo_lookup(ip)
 
-    country = data.get("country")
-    city = data.get("city")
-    region = data.get("region")
-    return render_template("index.html", country=country, city=city, region=region)
+    return render_template("index.html")
 
 @app.route("/snake")
 def snake():
