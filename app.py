@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, render_template, send_from_directory
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import insert
 
 import requests
 from datetime import datetime
@@ -36,11 +37,27 @@ class VisitorInfo(DB.Model):
     region = DB.Column(DB.String(64))
     city = DB.Column(DB.String(64))
     country = DB.Column(DB.String(64))
+    timestamp = DB.Column(DB.DateTime)
 
 @app.route("/")
 def index():
+    data_table = DB.Table("visitor_info", DB.metadata, autoload_with=DB.engine)
+
     ip = get_client_ip()
     location = geo_lookup(ip)
+
+    query = (
+        insert(data_table)
+        .values(
+            ip=ip,
+            region=location["region"],
+            city=location["city"],
+            country=location["country"],
+	    timestamp=datetime.now()
+	)
+    )
+    DB.session.execute(query)
+    DB.session.commit()
 
     return render_template("index.html")
 
