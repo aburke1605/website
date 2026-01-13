@@ -33,11 +33,11 @@ Migrate(app, DB)
 
 class VisitorInfo(DB.Model):
     __tablename__ = "visitor_info"
-    ip = DB.Column(DB.String(15), primary_key=True)
+    timestamp = DB.Column(DB.DateTime, primary_key=True)
+    ip = DB.Column(DB.String(15))
     region = DB.Column(DB.String(64))
     city = DB.Column(DB.String(64))
     country = DB.Column(DB.String(64))
-    timestamp = DB.Column(DB.DateTime)
 
 @app.route("/")
 def index():
@@ -49,11 +49,11 @@ def index():
     query = (
         insert(data_table)
         .values(
+	    timestamp=datetime.now(),
             ip=ip,
             region=location["region"],
             city=location["city"],
             country=location["country"],
-	    timestamp=datetime.now()
 	)
     )
     DB.session.execute(query)
