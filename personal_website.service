@@ -1,0 +1,22 @@
+# copy to /etc/systemd/system/personal_website.service
+[Unit]
+Description=Gunicorn instance for my personal website Flask app
+After=network.target mariadb.service
+Requires=mariadb.service
+
+[Service]
+User=aburke
+Group=www-data
+WorkingDirectory=/home/aburke/github/aburke1605/website
+EnvironmentFile=/home/aburke/github/aburke1605/website/.env
+ExecStart=/home/aburke/github/aburke1605/website/venv/bin/gunicorn \
+    --workers 3 \
+    --bind 127.0.0.1:8000 \
+    app:app
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+
