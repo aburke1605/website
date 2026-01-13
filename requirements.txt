@@ -1,2 +1,10 @@
 gunicorn
-Flask
+python-dotenv
+flask
+sqlalchemy
+flask-sqlalchemy
+flask-migrate
+pymysql
+requests
+datetime
+
