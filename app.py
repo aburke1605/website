@@ -8,6 +8,7 @@ from sqlalchemy import insert
 
 import requests
 from datetime import datetime
+import pytz
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 
@@ -49,7 +50,7 @@ def index():
     query = (
         insert(data_table)
         .values(
-	    timestamp=datetime.now(),
+	    timestamp=datetime.now(pytz.timezone("NZ")),
             ip=ip,
             region=location["region"],
             city=location["city"],
