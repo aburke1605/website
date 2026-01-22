@@ -52,9 +52,9 @@ def index():
         .values(
 	    timestamp=datetime.now(pytz.timezone("NZ")),
             ip=ip,
-            region=location["region"],
-            city=location["city"],
-            country=location["country"],
+            region=location.get("region", None),
+            city=location.get("city", None),
+            country=location.get("country", None),
 	)
     )
     DB.session.execute(query)
