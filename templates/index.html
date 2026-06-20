@@ -16,12 +16,12 @@
             <span style="font-size: 0.3em;">PhD, MPhys</span>
         </h1>
         <nav>
-            <a data-tab="about" class="active">Personal information</a>
-            <a data-tab="education">Education</a>
-            <a data-tab="experience">Professional work</a>
-            <a data-tab="cv">CV</a>
-            <a data-tab="projects">Projects</a>
-            <a data-tab="papers">Publications</a>
+            <a href="#about" data-tab="about" class="active">Personal information</a>
+            <a href="#education" data-tab="education">Education</a>
+            <a href="#experience" data-tab="experience">Professional work</a>
+            <a href="#cv" data-tab="cv">CV</a>
+            <a href="#projects" data-tab="projects">Projects</a>
+            <a href="#papers" data-tab="papers">Publications</a>
         </nav>
     </header>
 
@@ -39,10 +39,10 @@
                             <span class="tooltip-box">the original Irish spelling of
                             <a href="https://en.wikipedia.org/wiki/Aidan#">Aidan</a></span>
                         </span>,
-                        I'm 27 and from County Derry in Ireland.
+                        I'm 28 and from County Derry in Ireland.
                     </p>
                     <p style="text-align: center">
-                        I have a PhD in Particle Physics but recently started a career in full stack software development.
+                        I have a PhD in Particle Physics but changed career path to software engineering.
                     </p>
                     <div class="row">
                         <div class="column">
@@ -72,9 +72,9 @@
                 This was followed by a further four years (2020-2024) spent researching and obtaining obtaining a doctorate in the field of particle physics.
             </p>
             <div style="text-align: center;">
-                <embed src="{{ url_for('static', filename='pdf/MPhys.pdf') }}" width="500" height="400" type="application/pdf">
-                <embed src="{{ url_for('static', filename='pdf/PhD.pdf') }}" width="500" height="400" type="application/pdf">
-                <embed src="{{ url_for('static', filename='pdf/PhysicsBreakthroughPrize.pdf') }}" width="500" height="400" type="application/pdf">
+                <embed src="{{ url_for('static', filename='pdf/MPhys.pdf') }}" class="pdf-viewer" type="application/pdf">
+                <embed src="{{ url_for('static', filename='pdf/PhD.pdf') }}" class="pdf-viewer" type="application/pdf">
+                <embed src="{{ url_for('static', filename='pdf/PhysicsBreakthroughPrize.pdf') }}" class="pdf-viewer" type="application/pdf">
             </div>
         </section>
         <section id="experience" class="tab-content">
@@ -114,11 +114,12 @@
         <section id="cv" class="tab-content">
             <h2>CV</h2>
             <div style="text-align: center;">
-                <object data="{{ url_for('static', filename='pdf/v.pdf') }}" width="500" height="400" type="application/pdf">
+                <object data="{{ url_for('static', filename='pdf/cv.pdf') }}" class="pdf-viewer" type="application/pdf">
                     <p>Your browser does not support PDFs.
                         <a href="{{ url_for('static', filename='pdf/cv.pdf') }}">Download PDF</a>
                     </p>
                 </object>
+                <!-- <embed src="{{ url_for('static', filename='pdf/cv.pdf') }}" class="pdf-viewer" type="application/pdf"> -->
             </div>
         </section>
         <section id="papers" class="tab-content">
@@ -159,7 +160,7 @@
                         </a>
                     </div>
                     <p>
-                        I"ve also made a remake of Minesweeper, and more recently have begun a physics engine on which I can build more complex games in the future.
+                        I've also made a remake of Minesweeper, and more recently have begun a physics engine on which I can build more complex games in the future.
                     </p>
 
 
@@ -180,7 +181,7 @@
 
     
     <footer>
-        <p>&copy; 2025. All rights reserved.</p>
+        <p>&copy; 2026. All rights reserved.</p>
     </footer>
 
     <script>
