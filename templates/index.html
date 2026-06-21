@@ -188,17 +188,35 @@
         const tabs = document.querySelectorAll("nav a");
         const contents = document.querySelectorAll(".tab-content");
 
+        function showTab(name) {
+            tabs.forEach(t => t.classList.remove("active"));
+            contents.forEach(c => c.classList.remove("active"));
+
+            const tab = document.querySelector(`[data-tab="${name}"]`);
+            const content = document.getElementById(name);
+
+            if (!tab || !content) {
+                return;
+            }
+
+            tab.classList.add("active");
+            content.classList.add("active");
+        }
+
         tabs.forEach(tab => {
             tab.addEventListener("click", () => {
-                // deactivate all tabs and contents
-                tabs.forEach(t => t.classList.remove("active"));
-                contents.forEach(c => c.classList.remove("active"));
-
-                // activate clicked tab and corresponding content
-                tab.classList.add("active");
-                document.getElementById(tab.dataset.tab).classList.add("active");
+                location.hash = tab.dataset.tab;
             });
         });
+
+        function updateFromHash() {
+            const tabName = location.hash.substring(1) || "about";
+            showTab(tabName);
+        }
+
+        window.addEventListener("hashchange", updateFromHash);
+
+        updateFromHash();
     </script>
 </body>
 </html>
